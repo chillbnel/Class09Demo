@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Class09Demo.Classes;
+using Newtonsoft;
+using Newtonsoft.Json;
 
 namespace Class09Demo
 {
@@ -105,6 +109,22 @@ namespace Class09Demo
             {
                 Console.WriteLine(item);
             }
+        }
+
+        static void JsonConversion()//Make sure to download a NuGet; tools -> NuGet -> Manage -> Browse -> Newtonsoft.json... add "using Newtonsoft;"
+        {
+            string path = "../../brooklyn_blocks.json";
+            string text = "";
+            using (StreamReader sr = File.OpenText(path))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            IEnumerable<Blocks> brooklynBlock = JsonConvert.DeserializeObject<List<Blocks>>(text);
+
+            //var someBlock = brooklynBlock.Where( x => x.Name == "Little Italy"), note .Name is just a property in the Block class
+
+            //de-serialize JSON file, https://www.newtonsoft.com/json/help/html/SerializingJSON.html
         }
     }
 }
